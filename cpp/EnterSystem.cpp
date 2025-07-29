@@ -5,17 +5,22 @@
 
 using namespace BaseOps;
 
-void EnterSystem::AddUserToDB() {
+std::vector<User> EnterSystem::users_db_;
 
+User* EnterSystem::FindEmail(const std::string email) {
+  for (auto& user : users_db_) {
+    if (user.GetEmail() == email) {
+        return &user;
+    }
+  }
+  return nullptr;
 }
 
-User EnterSystem::FindEmail(const std::string email) {
-  User u;
-  return u;
-}
-
-bool EnterSystem::CheckPassword(User user, const std::string email) {
-  return true;
+bool EnterSystem::CheckPassword(User* user, const std::string password) {
+  if (user->GetPassword() == password) {
+    return true;
+  }
+  return false;
 }
 
 void EnterSystem::Login() {
@@ -30,7 +35,7 @@ void EnterSystem::Login() {
         Auth();
         return;
     }
-    User user = EnterSystem::FindEmail(email);
+    User* user = EnterSystem::FindEmail(email);
 
     Print("▷ Введите пароль:\n");
     Input(password);
@@ -49,7 +54,6 @@ void EnterSystem::Login() {
         }
 
     }
-
     if (isCorrectPassword) {
         Print("✓ Успешная авторизация!\n");
         User::ShowControlMenu();
@@ -59,7 +63,22 @@ void EnterSystem::Login() {
 }
 
 void EnterSystem::Reg() {
+    std::string email;
+    std::string password;
+    User user;
 
+    Print("▷ Введите email: ");
+    Input(email);
+
+    Print("▷ Введите пароль: ");
+    Input(password);
+
+    user.setEmail(email);
+    user.setPassword(password);
+    users_db_.push_back(user);
+    if (EnterSystem::FindEmail(email)) {
+        Print("✓ Успешная регистрация!");
+    }
 }
 
 void EnterSystem::Auth() {

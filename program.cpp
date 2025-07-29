@@ -8,8 +8,7 @@
 using namespace BaseOps;
 
 void test() {
-    std::string text;
-    std::cin >> text;
+  EnterSystem::Reg();
 }
 
 
@@ -25,7 +24,8 @@ void Program() {
   Print("┌──────────────────────────────┐\n", GREEN);
   Print("│Приветствуем вас в библиотеке!│\n", GREEN);
   Print("└──────────────────────────────┘\n", GREEN);
-  EnterSystem::Auth();
+  test();
+  // EnterSystem::Auth();
 }
 
 int main() {

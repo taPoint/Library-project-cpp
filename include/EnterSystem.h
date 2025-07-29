@@ -1,3 +1,5 @@
+// Класс системы входа (авторизация и регистрация)
+
 #ifndef ENTER_SYSTEM_H
 #define ENTER_SYSTEM_H
 
@@ -7,12 +9,10 @@
 
 class EnterSystem {
  private:
-  std::vector<User> users_db;
+  static std::vector<User> users_db_;
  public:
- void AddUserToDB();
-  void EnterUser();
-  static User FindEmail(const std::string email);
-  static bool CheckPassword(User user, const std::string password);
+  static User* FindEmail(const std::string email);
+  static bool CheckPassword(User* user, const std::string password);
 
   static void Login();
   static void Reg();
